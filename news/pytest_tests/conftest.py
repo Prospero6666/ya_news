@@ -50,10 +50,13 @@ def signup():
 
 
 @pytest.fixture
-def redirect(login):
-    def redirect_next(next_url):
-        return f'{login}?next={next_url}'
-    return redirect_next
+def redirect_edit_url(login, edit_url):
+    return f'{login}?next={edit_url}'
+
+
+@pytest.fixture
+def redirect_delete_url(login, delete_url):
+    return f'{login}?next={delete_url}'
 
 
 @pytest.fixture
@@ -83,7 +86,7 @@ def not_author_client(not_author):
 @pytest.fixture
 def bunch_news():
     today = datetime.today()
-    return News.objects.bulk_create(
+    News.objects.bulk_create(
         News(
             title=f'Новость {index}',
             text='Просто текст.',
